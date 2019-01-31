@@ -1,0 +1,22 @@
+-- -----------
+-- __USAGE.txt
+-- -----------
+-- XXX: 
+--
+-- https://github.com/Sorky/config-awesome
+--
+-- (c) GNU General Public License v3.0
+--
+
+-- Use this at the start of your theme to access the widget
+local widgets = { XXX = require( "widgets.XXX" ) }
+
+-- Customize the widget properties if needed
+local MyXXX = {
+
+-- Create the widget
+local MyXXX = widgets.XXX( MyXXX )
+
+-- Access the widget
+
+-- Add the keyboard key links [if you didn't let the widget do them]

@@ -1,0 +1,19 @@
+-- -----------
+-- __USAGE.txt
+-- -----------
+-- XXX: 
+--
+-- https://github.com/Sorky/config-awesome
+--
+-- (c) GNU General Public License v3.0
+--
+
+-- Use this at the start of your file to access the util
+local utils = { XXX = require( "utils.XXX" ) }
+
+-- Use the util
+local var = utils.XXX()
+
+-- Args...
+--
+--		

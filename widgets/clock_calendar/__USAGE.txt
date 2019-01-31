@@ -1,0 +1,35 @@
+-- -----------
+-- __USAGE.txt
+-- -----------
+-- clock_calendar: Date & time clock with drop-down volume bar
+--
+-- https://github.com/Sorky/config-awesome
+--
+-- (c) GNU General Public License v3.0
+--
+
+-- Use this at the start of your theme to access the widget
+local widgets = { clock_calendar = require( "widgets.clock_calendar" ) }
+
+-- Customize the widget properties if needed
+local MyClockCalendar = {	font	= theme.font,
+							format	= "%a, %d %b %Y, %R:%S ",
+							refresh = 1							}
+
+	local font			= attribs.font			or "Monospace Regular 12"
+	local format		= attribs.format		or " %a, %d %b %Y, %R "			-- See https://www.lua.org/pil/22.1.html
+	local refresh		= attribs.refresh		or 60
+	local font_cal		= attribs.font_cal		or "Monospace Regular 12"
+	local today_fg		= attribs.today_fg		or "#000000"
+	local today_bg		= attribs.today_bg		or "#FFFF00"
+	local spacing		= attribs.spacing		or "     "
+	local padding		= attribs.padding		or 12
+	local start_day		= attribs.start_day		or 2							-- The day of the week as a decimal, range 1 to 7, Sunday being 1
+	local month_count	= attribs.month_count	or 5
+
+-- Create the widget
+local MyClockCalendar = widgets.clock_calendar( MyClockCalendar )
+
+-- Access the widget
+
+-- Add the keyboard key links [if you didn't let the widget do them]

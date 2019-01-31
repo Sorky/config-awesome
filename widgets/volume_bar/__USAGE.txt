@@ -1,0 +1,171 @@
+-- -----------
+-- __USAGE.txt
+-- -----------
+-- volume_bar: Volume icon with drop-down volume bar _plus_ keyboard & mouse interaction
+--
+-- https://github.com/Sorky/config-awesome
+--
+-- (c) GNU General Public License v3.0
+--
+
+-- Use this at the start of your theme to access the widget
+local widgets = { volume_bar = require( "widgets.volume_bar" ) }
+
+-- Customize the widget properties if needed
+local MyVolumeBar = {	-- Directory containing the icon widgets [may also be used if you change the icons]
+						-- Defaults to: <directory_containing_the_volume_bar_widget_> .. "/icons/"
+						icon_path = "~/.config/awesome/widgets/volume_bar/icons/",
+						
+						-- Space (in pixels) before and after the icon
+						-- Defaults to: 7
+						icon_space = 7,
+						
+						-- Font to use in the tray
+						-- Defaults to: beautiful.bg_normal
+						bg_normal = "Monospace 10",
+						
+						-- Font to use in the popup/detail
+						-- Defaults to: beautiful.font
+						popup_font = "Monospace 10",
+						
+						-- Space around the popup
+						-- Defaults to: 12
+						margin = 12,
+						
+						-- How often to refresh the widget
+						-- Defaults to: 1
+						timeout = 1,
+						
+						-- Key combo to show/hide the popup
+						-- Defaults to: beautiful._altkey _and_ "v"
+						show_mod = "Mod1"
+						show_key = "v"
+
+						-- Assign commands to the "Media Keys"
+						-- Defaults to: true
+						media_keys = true,
+
+						-- Divisions in the text volume bar
+						-- Defaults to: 20
+						slots = 20,
+
+						-- HTML code to highlight the current day
+						-- Defaults to: "<span foreground='#FF0000' background='#999999'>" _and_ "</span>"
+						muted_s = "<span foreground='#FF0000' background='#999999'>",
+						muted_e = "</span>",
+
+						-- Command-line mixer app and the channel name to interact with [used later]
+						-- Defaults to: "amixer" _and_ "Master"
+						mixer_prog = "amixer",
+						mixer_chan = "Master",
+
+						-- Command to get the current volume
+						-- Defaults to: mixer_prog .. " -M get " .. mixer_chan
+						status_cmd = "amixer -M get Master",
+
+						-- Commands to increase the current volume
+						-- Defaults to: mixer_prog .. " -M set " .. mixer_chan .. " 1%+" _and_ mixer_prog .. " -M set " .. mixer_chan .. " 100%"
+						jobs_inc	= "amixer -M set Master 1%+",
+						jobs_max	= "amixer -M set Master 100%",
+
+						-- Commands to decrease the current volume
+						-- Defaults to: mixer_prog .. " -M set " .. mixer_chan .. " 1%-" _and_ mixer_prog .. " -M set " .. mixer_chan .. " 0%"
+						jobs_dec	= "amixer -M set Master 1%-",
+						jobs_min	= "amixer -M set Master 0%",
+
+						-- Command to mute the volume
+						-- Defaults to: mixer_prog .. " -q -D pulse sset " .. mixer_chan .. " toggle"
+						jobs_mute	= "amixer -q -D pulse sset Master toggle",
+
+						-- Command to decrease the current volume
+						jobs_mixer	= "pavucontrol",				-- "xterm -e alsamixer"
+
+						keys_inc_mod	= show_mod,
+						keys_inc_key	= "Up",
+						keys_max_mod	= show_mod,
+						keys_max_key	= "Prior",
+						keys_dec_mod	= show_mod,
+						keys_dec_key	= "Down",
+						keys_min_mod	= show_mod,
+						keys_min_key	= "Next",
+						keys_mute_mod	= show_mod,
+						keys_mute_key	= "m",
+						keys_mixer_mod	= show_mod,
+						keys_mixer_key	= "x",
+
+						icons_muted	= "~/.config/awesome/widgets/volume_bar/icons/muted.png",				-- icon_path .. "muted.png"
+						icons_off	= "~/.config/awesome/widgets/volume_bar/icons/level-0.png",				-- icon_path .. "level-0.png"
+						icons_low	= "~/.config/awesome/widgets/volume_bar/icons/level-1.png",				-- icon_path .. "level-1.png"
+						icons_med	= "~/.config/awesome/widgets/volume_bar/icons/level-2.png",				-- icon_path .. "level-2.png"
+						icons_high	= "~/.config/awesome/widgets/volume_bar/icons/level-3.png",				-- icon_path .. "level-3.png"
+						icons_full	= "~/.config/awesome/widgets/volume_bar/icons/level-4.png"}				-- icon_path .. "level-4.png"
+
+-- Create the widget
+local MyVolumeBar = widgets.volume_bar( MyVolumeBar )
+
+-- Access the widget
+--	Right part of wibar
+--	local wb_r	= {	layout = wibox.layout.fixed.horizontal											,
+--					MySystem.widget																	,
+--					MyRAM.widget																	,
+--					MyUpdates.widget																,
+--					MyBackup.widget																	,
+					MyVolumeBar.widget																,		-- <============
+--					MyWeather.widget																,
+--					MyClockCal.widget																,
+--					wibox.container.background( wibox.widget.textbox(" { "), beautiful.bg_focus )	,
+--					wibox.widget.systray()															,
+--					wibox.container.background( wibox.widget.textbox(" } "), beautiful.bg_focus )	,
+--					wibox.container.background( s.layoutbox, beautiful.bg_focus )					}
+
+
+
+
+
+
+
+
+
+
+
+-- Add the keyboard key links [if you didn't let the widget do them]
+--globalkeys = gears_table.join( globalkeys,	-- ALSA volume control
+												awful.key(	{ altkey }, "Up",
+															function() beautiful.MyVolumeBar.inc() end,
+															{ description = "volume up", group = "volume" }					),
+												awful.key( {},"XF86AudioRaiseVolume",
+															function() beautiful.MyVolumeBar.inc() end,
+															{ description = "volume up", group = "volume" }					),
+												awful.key(	{ altkey }, "Down",
+															function() beautiful.MyVolumeBar.dec() end,
+															{ description = "volume down", group = "volume" }				),
+												awful.key(	{}, "XF86AudioLowerVolume",
+															function() beautiful.MyVolumeBar.dec() end,
+															{ description = "volume down", group = "volume" }				),
+												awful.key(	{ altkey }, "Prior",
+															function() beautiful.MyVolumeBar.max() end,
+															{ description = "volume 100%", group = "volume" }				),
+												awful.key(	{ altkey }, "XF86AudioRaiseVolume",
+															function() beautiful.MyVolumeBar.max() end,
+															{ description = "volume 100%", group = "volume" }				),
+												awful.key(	{ altkey }, "Next",
+															function() beautiful.MyVolumeBar.min() end,
+															{ description = "volume 0%", group = "volume" }					),
+												awful.key(	{ altkey }, "XF86AudioLowerVolume",
+															function() beautiful.MyVolumeBar.min() end,
+															{ description = "volume 0%", group = "volume" }					),
+												awful.key(	{ altkey }, "m",
+															function() beautiful.MyVolumeBar.mute() end,
+															{ description = "toggle mute", group = "volume" }				),
+												awful.key(	{}, "XF86AudioMute",
+															function() beautiful.MyVolumeBar.mute() end,
+															{ description = "toggle mute", group = "volume" }				),
+												awful.key(	{ altkey }, "x",
+															function() beautiful.MyVolumeBar.mixer() end,
+															{ description = "toggle mute", group = "volume" }				),
+
+												-- Widgets popups
+												awful.key(	{ altkey, }, "v",
+															function () beautiful.MyVolumeBar.toggle() end,
+															{ description = "show filesystem", group = "widgets" }			),
+-- <more keys (or remove the final ',')>
